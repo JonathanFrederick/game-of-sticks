@@ -17,6 +17,18 @@ def get_int(low, high, prompt):
             continue
     return integer
 
+def reset_dict(ai_dict):
+    return ai_dict
+
+def add_dict(ai_dict, choices):
+    return player
+
+def subrtract_dict(ai_dict, choices):
+
+
+def ai_choice(count, player):
+
+    return count, player
 
 def prompt_count():
     """Prompts the player for the number of sticks to begin the game"""
@@ -30,7 +42,10 @@ def prompt_human_count():
 
 def prompt_choice(count, player):
     """Prompts the user for a number of sticks to pick up"""
-    return get_int(1, 3, "There are " + str(count) + " sticks on the board.\n" + player +": How many sticks do you take (1-3)?  ")
+    if isinstance(player, dict):
+        player = ai_choice(count, player)
+    else
+        return get_int(1, 3, "There are " + str(count) + " sticks on the board.\n" + player +": How many sticks do you take (1-3)?  ")
 
 
 def get_players(humans):
@@ -38,12 +53,10 @@ def get_players(humans):
     players = []
     ai_count = 1
     while humans > 0:
-        print("here")
-
         players.append(input("Please enter a player name:  "))
         humans -= 1
     while len(players) < 2:
-        players.append({"A. I. - " + str(ai_count):{}})
+        players.append({"A. I. - " + str(ai_count):[])
         ai_count += 1
     return players[0], players[1]
 
