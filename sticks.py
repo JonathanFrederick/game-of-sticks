@@ -17,15 +17,19 @@ def get_int(low, high, prompt):
             continue
     return integer
 
-def reset_dict(ai_dict):
-    """Checks each entry in dict for 1,2, and 3"""
+def set_dict_range(count, ai_dict):
+    """Sets default dict with (1,2,3) for range if not defined"""
     return ai_dict
 
-def add_dict(ai_dict, player):
+def reset_dict(ai_dict):
+    """Checks each entry in dict for 1, 2, and 3"""
+    return ai_dict
+
+def add_dict(player, ai_dict):
     """Adds choices back to dict for winning AI"""
     return player
 
-def subrtract_dict(ai_dict, player):
+def subrtract_dict(player, ai_dict):
     """Subtracts choices from dict for losing AI"""
     return player
 
@@ -45,7 +49,7 @@ def prompt_human_count():
 
 def prompt_choice(count, player):
     """Prompts the user for a number of sticks to pick up"""
-    if isinstance(player, dict):
+    if isinstance(player, list):
         return ai_choice(count, player)
     else:
         return get_int(1, 3, "There are " + str(count) + " sticks on the board.\n" + player +": How many sticks do you take (1-3)?  ")
