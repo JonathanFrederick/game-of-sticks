@@ -21,10 +21,29 @@ def prompt_count():
 
 def prompt_human_count():
     """Prompts the user for the number of human players (0-2)"""
+    while True:
+        try:
+            humans = int(input("Please input the number of human players (0-2)"))
+            if humans < 0 or humans > 2:
+                humans/0
+            break
+        except:
+            print("Please enter an integer between 0 and 2")
+            continue
+    return humans
+
+def get_players(player1 = {}, player2={}):
     pass
 
 
-def turn(count):
+def prompt_name(humans):
+    """Prompts for player names or returns a dictionary for an AI"""
+
+
+    return name
+
+
+def turn(count, player):
     """Prompts the player for the number of sticks to pick up"""
     pass
 
@@ -33,8 +52,11 @@ def main():
     print("Welcome to the Game of Sticks!")
     count = prompt_count()
     turn_alt = 1
-
-#    while count < 0:
+    print(prompt_human_count())
+#    player1, player2 = prompt_name()
+    while count < 0:
+        if turn_alt > 0:
+            turn(count, player1)
 
 
 
