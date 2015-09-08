@@ -19,6 +19,9 @@ def get_int(low, high, prompt):
 
 def set_dict_range(count, ai_dict):
     """Sets default dict with (1,2,3) for range if not defined"""
+    for i in range(1, count+1):
+        if i not in ai_dict:
+            ai_dict[i] = [1, 2 ,3]
     return ai_dict
 
 def reset_dict(ai_dict):
