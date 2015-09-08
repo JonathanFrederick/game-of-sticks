@@ -12,11 +12,11 @@ class TestSticks(unittest.TestCase):
                                 {1:[1,2,3], 2:[1,2,3], 3:[1,2,3]})
 
     def test_add_dict(self):
-        self.assertEqual(add_dict([(1, 3),(2, 2),(3, 1)], {1:[1,2,3], 2:[1,2,3], 3:[1,2,3]}),
+        self.assertEqual(add_dict(["HI",[[1, 3],[2, 2],[3, 1]]], {1:[1,2,3], 2:[1,2,3], 3:[1,2,3]}),
                                 {1:[1,2,3,3], 2:[1,2,3,2], 3:[1,2,3,1]})
 
     def test_subtract_dict(self):
-        self.assertEqual(subtract_dict([(1, 3),(2, 2),(3, 1)], {1:[1,2,3], 2:[1,2,3], 3:[1,2,3]}),
+        self.assertEqual(subtract_dict(["HI",[[1, 3],[2, 2],[3, 1]]], {1:[1,2,3], 2:[1,2,3], 3:[1,2,3]}),
                                 {1:[1,2], 2:[1,3], 3:[2,3]})
 
     def test_set_dict_range(self):
