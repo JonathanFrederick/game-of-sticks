@@ -32,15 +32,17 @@ def prompt_human_count():
             continue
     return humans
 
-def get_players(player1 = {}, player2={}):
-    pass
-
-
-def prompt_name(humans):
+def get_players(humans):
     """Prompts for player names or returns a dictionary for an AI"""
-
-
-    return name
+    players = []
+    ai_count = 1
+    while humans > 0:
+        players.append(input("Please enter a player name:  "))
+        humans -= 1
+    while len(players) < 2:
+        players.append({"A. I. - " + str(ai_count):{}})
+        ai_count += 1
+    return players[0], players[1]
 
 
 def turn(count, player):
@@ -52,7 +54,7 @@ def main():
     print("Welcome to the Game of Sticks!")
     count = prompt_count()
     turn_alt = 1
-    print(prompt_human_count())
+    print(get_players(prompt_human_count()))
 #    player1, player2 = prompt_name()
     while count < 0:
         if turn_alt > 0:
