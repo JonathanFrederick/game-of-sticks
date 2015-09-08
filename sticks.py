@@ -28,8 +28,9 @@ def prompt_human_count():
     return get_int(0, 2, "Please input the number of human players (0-2)")
 
 
-def prompt_choice(player):
-    return get_int(1, 2, player+": How many sticks do you take (1-3)?  ")
+def prompt_choice(count, player):
+    """Prompts the user for a number of sticks to pick up"""
+    return get_int(1, 3, "There are " + str(count) + " sticks on the board.\n" + player +": How many sticks do you take (1-3)?  ")
 
 
 def get_players(humans):
@@ -37,6 +38,8 @@ def get_players(humans):
     players = []
     ai_count = 1
     while humans > 0:
+        print("here")
+
         players.append(input("Please enter a player name:  "))
         humans -= 1
     while len(players) < 2:
@@ -47,8 +50,8 @@ def get_players(humans):
 
 def turn(count, player):
     """Prompts the player for the number of sticks to pick up"""
-    choice = prompt_choice(player)
-    return count, player()
+    choice = prompt_choice(count, player)
+    return count - choice, player
 
 
 def main():
@@ -56,12 +59,18 @@ def main():
     count = prompt_count()
     turn_alt = 1
     player_1, player_2 = get_players(prompt_human_count())
-    while count < 0:
+    while count > 0:
         if turn_alt > 0:
-            turn, player1 = turn(count, player1)
+            count, player_1 = turn(count, player_1)
         else:
-            turn, player2 = turn(count, player2)
-        turn_alt * -1
+            count, player_2 = turn(count, player_2)
+        turn_alt = turn_alt * -1
+    if turn_alt > 0:
+        print(player_1, "wins the game!")
+    else:
+        print(player_2, "wins the game!")
+
+
 
 
 if __name__ == '__main__':
