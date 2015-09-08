@@ -26,6 +26,10 @@ def set_dict_range(count, ai_dict):
 
 def reset_dict(ai_dict):
     """Checks each entry in dict for 1, 2, and 3"""
+    for hat in ai_dict:
+        for choice in (1, 2, 3):
+            if choice not in ai_dict[hat]:
+                ai_dict[hat].append(choice)
     return ai_dict
 
 def add_dict(player, ai_dict):
