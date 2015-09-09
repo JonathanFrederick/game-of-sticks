@@ -4,6 +4,8 @@ AI players can play against each other.
 In the Game of Sticks there is a heap of sticks on a board.
 On their turn, each player picks up 1 to 3 sticks. The one
 who has to pick the final stick will be the loser."""
+import random
+
 def get_int(low, high, prompt):
     """Prompts the player for an integer within a range"""
     while True:
@@ -34,8 +36,6 @@ def reset_dict(ai_dict):
 
 def add_dict(player, ai_dict):
     """Adds choices back to dict for winning AI"""
-    #print(player)
-    #print(ai_dict)
     for choice in player[1]:
         ai_dict[choice[0]].append(choice[1])
     return ai_dict
@@ -46,9 +46,14 @@ def subtract_dict(player, ai_dict):
         ai_dict[choice[0]].remove(choice[1])
     return ai_dict
 
+def update_dict(winner, loser, ai_dict):
+    return add_dict(winner, subtract_dict(loser, ai_dict))
+
 def ai_choice(count, player, ai_dict):
     """Chooses a random answer from ai_dict and records it in player's list"""
-    return count, player
+    choice = random.choice(ai_dict[count])
+    player[1].append([count, choice])
+    return player, choice
 
 def prompt_count():
     """Prompts the player for the number of sticks to begin the game"""
@@ -60,12 +65,15 @@ def prompt_human_count():
     return get_int(0, 2, "Please input the number of human players (0-2)")
 
 
-def prompt_choice(count, player):
+def prompt_choice(count, player, ai_dict):
     """Prompts the user for a number of sticks to pick up"""
     if isinstance(player, list):
-        return ai_choice(count, player)
+        player, choice = ai_choice(count, player, ai_dict)
+        #print(len(player[1]-1))
+        print("There were " + str(count) + " sticks and " + player[0] + " picked up " + str(player[1][len(player[1])-1][1]))
+        return player, choice
     else:
-        return get_int(1, 3, "There are " + str(count) + " sticks on the board.\n" + player +": How many sticks do you take (1-3)?  ")
+        return player, get_int(1, 3, "There are " + str(count) + " sticks on the board.\n" + player +": How many sticks do you take (1-3)?  ")
 
 
 def get_players(humans):
@@ -76,32 +84,73 @@ def get_players(humans):
         players.append(input("Please enter a player name:  "))
         humans -= 1
     while len(players) < 2:
-        players.append({"A. I. - " + str(ai_count):[]})
+        players.append(["A. I. - " + str(ai_count),[]])
         ai_count += 1
     return players[0], players[1]
 
 
-def turn(count, player):
+def turn(count, player, ai_dict):
     """Prompts the player for the number of sticks to pick up"""
-    choice = prompt_choice(count, player)
+    player, choice = prompt_choice(count, player, ai_dict)
     return count - choice, player
 
 
 def main():
     print("Welcome to the Game of Sticks!")
-    count = prompt_count()
-    turn_alt = 1
-    player_1, player_2 = get_players(prompt_human_count())
-    while count > 0:
+
+    # ai_dict = set_dict_range(3, {1:[1, 2, 3]})
+    # player_1, player_2 = get_players(0)
+    # print(player_1)
+    # print(player_2)
+    # print(prompt_choice(3, player_1, ai_dict))
+    # print(prompt_choice(3, player_2, ai_dict))
+    ai_dict = {}
+    again = True
+    while again:
+
+
+
+        count = prompt_count()
+        turn_alt = 1
+        player_1, player_2 = get_players(prompt_human_count())
+
+        ai_dict = set_dict_range(count, ai_dict)
+        while count > 0:
+            if turn_alt > 0:
+                count, player_1 = turn(count, player_1, ai_dict)
+            else:
+                count, player_2 = turn(count, player_2, ai_dict)
+            turn_alt = turn_alt * -1
         if turn_alt > 0:
-            count, player_1 = turn(count, player_1)
+            if isinstance(player_1, list):
+                add_dict(player_1, ai_dict)
+                print(player_1[0], "wins the game!")
+            else:
+                print(player_1, "wins the game!")
+            if isinstance(player_2, list):
+                subtract_dict(player_2, ai_dict)
         else:
-            count, player_2 = turn(count, player_2)
-        turn_alt = turn_alt * -1
-    if turn_alt > 0:
-        print(player_1, "wins the game!")
-    else:
-        print(player_2, "wins the game!")
+            if isinstance(player_2, list):
+                add_dict(player_2, ai_dict)
+                print(player_2[0], "wins the game!")
+            else:
+                print(player_2, "wins the game!")
+            if isinstance(player_1, list):
+                subtract_dict(player_1, ai_dict)
+        while True:
+            y_n = input("Would you like to play again (yes or no)?  ").lower()
+
+            if y_n not in ('y', 'yes', 'n', 'no'):
+                print("Please enter 'yes' or 'no'")
+                continue
+            else:
+                break
+        if y_n in ('no', 'n'):
+            again = False
+
+
+
+#    print(str(ai_dict))
 
 
 
