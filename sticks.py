@@ -34,11 +34,17 @@ def reset_dict(ai_dict):
 
 def add_dict(player, ai_dict):
     """Adds choices back to dict for winning AI"""
-    return player
+    #print(player)
+    #print(ai_dict)
+    for choice in player[1]:
+        ai_dict[choice[0]].append(choice[1])
+    return ai_dict
 
-def subrtract_dict(player, ai_dict):
+def subtract_dict(player, ai_dict):
     """Subtracts choices from dict for losing AI"""
-    return player
+    for choice in player[1]:
+        ai_dict[choice[0]].remove(choice[1])
+    return ai_dict
 
 def ai_choice(count, player, ai_dict):
     """Chooses a random answer from ai_dict and records it in player's list"""
