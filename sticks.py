@@ -5,6 +5,7 @@ In the Game of Sticks there is a heap of sticks on a board.
 On their turn, each player picks up 1 to 3 sticks. The one
 who has to pick the final stick will be the loser."""
 import random
+import sys
 
 def get_int(low, high, prompt):
     """Prompts the player for an integer within a range"""
@@ -90,6 +91,21 @@ def get_players(humans):
     return players[0], players[1]
 
 
+def prompt_mode():
+    """Prompts for game mode"""
+    return get_int(0, 5, """Please select a mode from the following choices:
+    0 - Watch a match between two computers
+    1 - Play a match against a computer
+    2 - Play a match against a fellow human
+    3 - Train the computer
+    4 - Reset the computer
+    5 - Exit this game\n>>""")
+
+
+def train_ai(ai_dict):
+    pass
+
+
 def turn(count, player, ai_dict):
     """Prompts the player for the number of sticks to pick up"""
     player, choice = prompt_choice(count, player, ai_dict)
@@ -101,33 +117,40 @@ def main():
     ai_dict = {}
     mode = 0
     while mode != 5:
-        count = prompt_count()
-        turn_alt = 1
-        player_1, player_2 = get_players(prompt_human_count())
-
-        ai_dict = set_dict_range(count, ai_dict)
-        while count > 0:
-            if turn_alt > 0:
-                count, player_1 = turn(count, player_1, ai_dict)
-            else:
-                count, player_2 = turn(count, player_2, ai_dict)
-            turn_alt = turn_alt * -1
-        if turn_alt > 0:
-            if isinstance(player_1, list):
-                add_dict(player_1, ai_dict)
-                print(player_1[0], "wins the game!")
-            else:
-                print(player_1, "wins the game!")
-            if isinstance(player_2, list):
-                subtract_dict(player_2, ai_dict)
+        mode = prompt_mode()
+        if mode == 5:
+            sys.exit()
+        elif mode == 4:
+            ai_dict == {}
+        elif mode == 3:
+            ai_dict = train_ai(ai_dict)
         else:
-            if isinstance(player_2, list):
-                add_dict(player_2, ai_dict)
-                print(player_2[0], "wins the game!")
+            count = prompt_count()
+            turn_alt = 1
+            player_1, player_2 = get_players(mode)
+            ai_dict = set_dict_range(count, ai_dict)
+            while count > 0:
+                if turn_alt > 0:
+                    count, player_1 = turn(count, player_1, ai_dict)
+                else:
+                    count, player_2 = turn(count, player_2, ai_dict)
+                turn_alt = turn_alt * -1
+            if turn_alt > 0:
+                if isinstance(player_1, list):
+                    add_dict(player_1, ai_dict)
+                    print(player_1[0], "wins the game!")
+                else:
+                    print(player_1, "wins the game!")
+                if isinstance(player_2, list):
+                    subtract_dict(player_2, ai_dict)
             else:
-                print(player_2, "wins the game!")
-            if isinstance(player_1, list):
-                subtract_dict(player_1, ai_dict)
+                if isinstance(player_2, list):
+                    add_dict(player_2, ai_dict)
+                    print(player_2[0], "wins the game!")
+                else:
+                    print(player_2, "wins the game!")
+                if isinstance(player_1, list):
+                    subtract_dict(player_1, ai_dict)
         while True:
             y_n = input("Would you like to play again (yes or no)?  ").lower()
 
