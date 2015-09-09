@@ -97,19 +97,9 @@ def turn(count, player, ai_dict):
 
 def main():
     print("Welcome to the Game of Sticks!")
-
-    # ai_dict = set_dict_range(3, {1:[1, 2, 3]})
-    # player_1, player_2 = get_players(0)
-    # print(player_1)
-    # print(player_2)
-    # print(prompt_choice(3, player_1, ai_dict))
-    # print(prompt_choice(3, player_2, ai_dict))
     ai_dict = {}
     again = True
     while again:
-
-
-
         count = prompt_count()
         turn_alt = 1
         player_1, player_2 = get_players(prompt_human_count())
@@ -147,12 +137,6 @@ def main():
                 break
         if y_n in ('no', 'n'):
             again = False
-
-
-
-#    print(str(ai_dict))
-
-
 
 
 if __name__ == '__main__':
