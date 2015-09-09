@@ -104,9 +104,9 @@ def prompt_mode():
 
 
 def print_ai_dict(ai_dict):
-    print("Sorry, this funcionality is not yet implemented")
-    # for key in range(1, len(ai_dict)+1):
-    #      print(key, "-", ai_dict[key])
+    print(ai_dict)
+    for key in range(1, len(ai_dict)+1):
+          print(key, "-", ai_dict[key])
 
 
 def train_ai(ai_dict):
@@ -133,8 +133,9 @@ def train_ai(ai_dict):
             add_dict([[],ai2], ai_dict)
             subtract_dict([[],ai1], ai_dict)
         reset_dict(ai_dict)
-        num_matches -= 1
         print("Match", num_matches, "complete")
+        num_matches -= 1
+    return ai_dict
 
 
 
