@@ -104,13 +104,14 @@ def prompt_mode():
 
 
 def print_ai_dict(ai_dict):
-    print(ai_dict)
     for key in range(1, len(ai_dict)+1):
-          print(key, "-", ai_dict[key])
+          print(str(key).ljust(3) + " :   1     -" + str(ai_dict[key].count(1)).rjust(6) + " (" + str(round(ai_dict[key].count(1)/len(ai_dict[key]), 2)).ljust(4, '0') +
+                            "),     2 -" + str(ai_dict[key].count(2)).rjust(6) + " (" + str(round(ai_dict[key].count(2)/len(ai_dict[key]), 2)).ljust(4, '0') +
+                            "),     3 -" + str(ai_dict[key].count(3)).rjust(6) + " (" + str(round(ai_dict[key].count(3)/len(ai_dict[key]), 2)).ljust(4, '0') + ")")
 
 
 def train_ai(ai_dict):
-    num_matches = get_int(10, 1000, "Between 10 and 1000, how many matches would you like to run?  ")
+    num_matches = get_int(10, 20000, "Between 10 and 20,000, how many matches would you like to run?  ")
     num_sticks = get_int(10, 100, "Between 10 and 100, how many sticks should be at the beginning of these matches?  ")
     while num_matches > 0:
         turn_alt = 1
@@ -133,7 +134,7 @@ def train_ai(ai_dict):
             add_dict([[],ai2], ai_dict)
             subtract_dict([[],ai1], ai_dict)
         reset_dict(ai_dict)
-        print("Match", num_matches, "complete")
+        print("Match", num_matches, "complete") #Optional printout for each match
         num_matches -= 1
     return ai_dict
 
