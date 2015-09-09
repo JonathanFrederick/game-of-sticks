@@ -93,17 +93,51 @@ def get_players(humans):
 
 def prompt_mode():
     """Prompts for game mode"""
-    return get_int(0, 5, """Please select a mode from the following choices:
+    return get_int(0, 6, """Please select a mode from the following choices:
     0 - Watch a match between two computers
     1 - Play a match against a computer
     2 - Play a match against a fellow human
     3 - Train the computer
     4 - Reset the computer
-    5 - Exit this game\n>>""")
+    5 - View the AI stats
+    6 - Exit this game\n>>""")
+
+
+def print_ai_dict(ai_dict):
+    print("Sorry, this funcionality is not yet implemented")
+    # for key in range(1, len(ai_dict)+1):
+    #      print(key, "-", ai_dict[key])
 
 
 def train_ai(ai_dict):
-    pass
+    num_matches = get_int(10, 1000, "Between 10 and 1000, how many matches would you like to run?  ")
+    num_sticks = get_int(10, 100, "Between 10 and 100, how many sticks should be at the beginning of these matches?  ")
+    while num_matches > 0:
+        turn_alt = 1
+        count = num_sticks
+        ai1 = []
+        ai2 = []
+        ai_dict = set_dict_range(num_sticks, ai_dict)
+        while count > 0:
+            if turn_alt > 0:
+                ai1.append([count, random.choice(ai_dict[count])])
+                count -= ai1[len(ai1)-1][1]
+            else:
+                ai2.append([count, random.choice(ai_dict[count])])
+                count -= ai2[len(ai2)-1][1]
+            turn_alt = turn_alt*-1
+        if turn_alt > 0:
+            add_dict([[],ai1], ai_dict)
+            subtract_dict([[],ai2], ai_dict)
+        else:
+            add_dict([[],ai2], ai_dict)
+            subtract_dict([[],ai1], ai_dict)
+        reset_dict(ai_dict)
+        num_matches -= 1
+        print("Match", num_matches, "complete")
+
+
+
 
 
 def turn(count, player, ai_dict):
@@ -114,12 +148,14 @@ def turn(count, player, ai_dict):
 
 def main():
     print("Welcome to the Game of Sticks!")
-    ai_dict = {}
+    ai_dict = {1:[1,2,3], 2:[1,2,3]}
     mode = 0
     while True:
         mode = prompt_mode()
-        if mode == 5:
+        if mode == 6:
             sys.exit()
+        elif mode == 5:
+            print_ai_dict(ai_dict)
         elif mode == 4:
             ai_dict == {}
         elif mode == 3:
