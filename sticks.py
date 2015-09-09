@@ -116,7 +116,7 @@ def main():
     print("Welcome to the Game of Sticks!")
     ai_dict = {}
     mode = 0
-    while mode != 5:
+    while True:
         mode = prompt_mode()
         if mode == 5:
             sys.exit()
@@ -151,16 +151,6 @@ def main():
                     print(player_2, "wins the game!")
                 if isinstance(player_1, list):
                     subtract_dict(player_1, ai_dict)
-        while True:
-            y_n = input("Would you like to play again (yes or no)?  ").lower()
-
-            if y_n not in ('y', 'yes', 'n', 'no'):
-                print("Please enter 'yes' or 'no'")
-                continue
-            else:
-                break
-        if y_n in ('no', 'n'):
-            mode = 5
 
 
 if __name__ == '__main__':
